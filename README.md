@@ -82,29 +82,22 @@ La amplitud del mensaje y de la portadora es 1. La semilla permite repetir una p
 
 El mensaje es un coseno:
 
-\[
-m(t)=\cos(2\pi f_m t).
-\]
+$m(t)=\cos(2\pi f_m t)$
 
 La frecuencia instantánea ideal es:
 
-\[
-f_i(t)=f_c+\Delta f\,m(t).
-\]
+$f_i(t)=f_c+\Delta f\,m(t)$
+
 
 La señal transmitida se obtiene integrando el mensaje en la fase:
 
-\[
-s(t)=\cos\left(2\pi f_c t+2\pi\Delta f\int_0^t m(\tau)\,d\tau\right).
-\]
+$s(t)=\cos\left(2\pi f_c t+2\pi\Delta f\int_0^t m(\tau)\,d\tau\right)$
 
 En el código, `np.cumsum(mensaje) / fs` aproxima esa integral. La amplitud de la portadora permanece constante; la separación entre sus ciclos cambia con el mensaje.
 
 Para un tono, el índice de modulación y la aproximación de Carson son:
 
-\[
-\beta=\frac{\Delta f}{f_m},\qquad B\approx2(\Delta f+f_m).
-\]
+$\beta=\frac{\Delta f}{f_m},\qquad B\approx2(\Delta f+f_m)$
 
 Con los valores iniciales, β = 10 y B ≈ 11 000 Hz. La frecuencia instantánea varía entre 15 y 25 kHz. Los bordes aproximados de Carson están en 14,5 y 25,5 kHz: el intervalo de frecuencia instantánea y el ancho de banda espectral son magnitudes diferentes.
 
@@ -112,15 +105,11 @@ Con los valores iniciales, β = 10 y B ≈ 11 000 Hz. La frecuencia instantánea
 
 El canal se modela mediante:
 
-\[
-r(t)=s(t)+n(t),
-\]
+$r(t)=s(t)+n(t)$
 
 donde `n(t)` es ruido blanco gaussiano aditivo (AWGN). El programa calcula la potencia media de la señal y determina la varianza del ruido mediante:
 
-\[
-P_n=P_s\,10^{-\mathrm{SNR}_{dB}/10}.
-\]
+$P_n=P_s\,10^{-\mathrm{SNR}_{dB}/10}$
 
 La SNR configurada corresponde a toda la banda muestreada, antes del filtro de canal. No representa directamente la SNR del mensaje recuperado. Los filtros del receptor eliminan parte del ruido añadido.
 
@@ -131,9 +120,7 @@ La SNR configurada corresponde a toda la banda muestreada, antes del filtro de c
 3. **Diferencia de fase.** Se calcula el argumento de `z[n] × conjugado(z[n−1])`. Al multiplicarlo por `fs / (2π)` se estima la frecuencia instantánea.
 4. **Recuperación del mensaje.** Se resta `fc` y se divide por `desviacion`:
 
-   \[
-   \hat m[n]=\frac{\hat f_i[n]-f_c}{\Delta f}.
-   \]
+$\hat m[n]=\frac{\hat f_i[n]-f_c}{\Delta f}$
 
 5. **Filtro de salida.** Un filtro paso bajo con frecuencia de corte `1.5 × fm` reduce el ruido de alta frecuencia en el mensaje recuperado.
 
@@ -164,9 +151,7 @@ Las métricas excluyen un margen en ambos extremos de la señal para reducir la 
 
 La relación señal/error se calcula como:
 
-\[
-10\log_{10}\left(\frac{\operatorname{media}(m^2)}{\operatorname{media}((m-\hat m)^2)}\right).
-\]
+$10\log_{10}\left(\frac{\operatorname{media}(m^2)}{\operatorname{media}((m-\hat m)^2)}\right)$
 
 ## 9. Organización del código
 
