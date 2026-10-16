@@ -1,0 +1,21 @@
+{
+  "version": 1,
+  "author": "Sistemas de comunicaciones - FM didactica",
+  "editor": "wokwi",
+  "parts": [
+    { "type": "wokwi-arduino-uno", "id": "uno", "top": 60, "left": 10, "attrs": {} },
+    { "type": "wokwi-potentiometer", "id": "pot", "top": 80, "left": 380, "attrs": { "value": "512" } },
+    { "type": "wokwi-logic-analyzer", "id": "logic", "top": -90, "left": 370, "attrs": { "channelNames": "FM_TX,FM_RX", "filename": "fm_pulsos" } }
+  ],
+  "connections": [
+    [ "uno:9", "uno:2", "green", [ "v-25" ] ],
+    [ "uno:9", "logic:D0", "blue", [] ],
+    [ "uno:2", "logic:D1", "orange", [] ],
+    [ "uno:GND.1", "logic:GND", "black", [] ],
+    [ "pot:VCC", "uno:5V", "red", [] ],
+    [ "pot:GND", "uno:GND.2", "black", [] ],
+    [ "pot:SIG", "uno:A0", "purple", [] ]
+  ],
+  "serialMonitor": { "display": "plotter" },
+  "dependencies": {}
+}
